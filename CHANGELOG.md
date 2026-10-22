@@ -1,5 +1,33 @@
 # 更新日志 · Changelog
 
+## v1.6.1 (2026-10-22)
+
+## 简体中文
+
+高缩放比例的笔记本：窗口启动时不再超出屏幕（默认尺寸放不下就最大化，最小尺寸降为 880×600）；显示密度新增默认的「跟随窗口」，较小或较矮的窗口自动使用紧凑模式；侧栏品牌名过长时换行显示。
+跟单组编辑器的主账户与跟随账户下拉框显示账户净值、同步状态以及该账户已在哪些跟单组中担任主账户或跟随（未加入则标明）。
+修复 Pine 策略市价入场模式下“一笔交易结束后下一笔不下单”的问题：同一入场 ID 的新交易在前一笔仍在与券商核对（止损/止盈是否真的成交）时，其模拟成交被当成旧记录的成交而丢弃，账户空仓而模拟持仓。现在每条镜像记录记住所属交易序号，新交易的市价入场等旧交易核对完成（未成交的真实出场先按市价平掉）后再发送；预挂单模式下在挂单送达券商前就成交的模拟入场同样按市价入场，并记为 `ENTRY_FILLED_BEFORE_RESTING`。
+修复下单后紧接着的多余改价：`math.round_to_mintick` 与按跳数计算的止盈止损价带有二进制浮点残差（如 4089.1000000000004），券商回报 4089.1 时被当作价格变化而重复改价，导致 CONFIRMATION_TIMEOUT、`MODIFY_UNCONFIRMED` 与 ExecutionStopped 拒绝。现在这些价格按合约最小跳动取整，镜像发送和比较的价格也按跳动对齐。
+修复市价入场的 OSO（入场＋止盈＋止损）复制到跟随账户后保护单被软件自己撤掉的问题：跟随账户的 OSO 刚提交、券商仍报告为 PendingNew 时，若恰好赶上核对（启动后每 30 秒一次）或主账户改单，退出容量按“入场未成交、保护单未挂起”算成 0，两条保护单以 `exit-capacity` 撤销，持仓失去保护。现在券商确认前的 OSO 保护单、以及入场成交已到而持仓回报未到时的保护单，不再按容量改小或撤销；容量撤单在发送前会重新核对。
+
+## English
+
+Laptops at high scaling: the window no longer starts larger than the screen (it opens maximized when the default size does not fit; the minimum is now 880×600), the new default density "Follow window" switches small or short windows to compact automatically, and a long brand name wraps in the sidebar.
+The copy-group editor's leader and follower drop-downs show each account's equity, sync state and the groups it already leads or follows (or that it is in none).
+Fixed Pine strategies in market entry mode not placing the next trade after one ended: when the script re-entered under the same entry id while the earlier trade was still being verified against the broker (did its stop or target really fill?), the new simulated fill was taken for the old record's and dropped, leaving the account flat while the emulator held a position. Every mirror record now remembers the trade serial it mirrors; the new trade's market entry waits until the ended trade is settled (an unfilled real exit is closed at market first) and is then sent. In resting mode a simulated entry that fills before its order reached the broker now enters at market the same way, noted as `ENTRY_FILLED_BEFORE_RESTING`.
+Fixed the spurious price changes sent right after an entry: `math.round_to_mintick` and tick-based profit/loss levels carried binary floating-point residue (4089.1000000000004) that looked like a changed price once the broker reported 4089.1, causing CONFIRMATION_TIMEOUT, `MODIFY_UNCONFIRMED` and ExecutionStopped rejections. These prices now snap to the contract tick, and the mirror sends and compares tick-aligned prices.
+Fixed the app cancelling the follower's protection of a copied market-entry OSO (entry with target and stop): when a reconciliation (every 30 seconds after a start) or a leader change ran while Tradovate still reported the just-placed OSO as PendingNew, the exit capacity was read as zero (entry unfilled, brackets not yet suspended) and both brackets were cancelled as `exit-capacity`, leaving the position unprotected. OSO brackets the broker has not acknowledged yet, and protection whose entry fill arrived before the position report, are no longer shrunk or cancelled for capacity; a capacity cancel is checked again just before it is sent.
+
+## Commits
+
+- chore: release v1.6.1 (447fe11)
+- test: defer a source change made while the follower OSO is unacknowledged (5a26698)
+- fix: keep native OSO brackets the broker has not acknowledged yet (3a459b0)
+- feat: fit small logical screens (laptops at high scaling) (3c50125)
+- feat: show equity, sync state and group membership in the group editor account lists (5e38b95)
+- fix: place the next Pine market entry after a trade ends and stop residue modifies (e96d317)
+- chore: point updatesInfo at v1.6.0 (a15b7e2)
+
 ## v1.6.0 (2026-10-22)
 
 ## 简体中文
