@@ -1,15 +1,15 @@
 {
   "product": "冒险岛VIP Copy",
   "latest": {
-    "version": "v1.0.1",
-    "publishedAt": "2026-10-22T06:35:42.998Z",
-    "url": "https://github.com/Mind2Money/PropfirmVIPCopyUpdates/releases/tag/v1.0.1",
-    "notes": "## 简体中文\n\n账户页默认折叠「未同步」账户，工具栏的「展开未同步账户 N」按钮可展开或收起；搜索时始终显示全部匹配账户，\n点击针对未同步账户的提醒时会自动展开。\n\n## English\n\nThe Accounts page folds unsynced accounts by default; the toolbar's \"Show N unsynced\" button expands or\nhides them, a search always shows every match, and opening an alert for an unsynced account expands them.\n\n## Commits\n\n- chore: release v1.0.1 (583fa46)\n- feat: fold unsynced accounts on the Accounts page until expanded (24bdce3)\n- chore: point updatesInfo at v1.0.0 (4c4ab86)\n",
+    "version": "v1.5.0",
+    "publishedAt": "2026-10-22T07:46:16.394Z",
+    "url": "https://github.com/Mind2Money/PropfirmVIPCopyUpdates/releases/tag/v1.5.0",
+    "notes": "## 简体中文\n\n品牌声明：每个页面底部新增 `© PropFirmVIP 冒险岛 https://propfirmvip.com/` 版权行（点击打开品牌网址），关于页新增\n提供方、技术支持与永久免费声明；两者来自皮肤清单的 `brand.copyright` / `brand.notice`，`data/config.json` 的 `brand` 可覆盖。\n\n海岛皮肤素材调整：侧栏角色改用不拿地图的冒险熊，左上角头像改用用户提供的小熊贴纸；页眉横幅重新绘制，去掉右侧小屋，\n右下角改为一只头朝左的手绘小蓝龙，页眉卡片在高窗口下加高到 180 DIP 以显示完整画面。\n皮肤清单新增 `header.band`（页眉图的竖向显示区间）、`header.height`（页眉卡片最小高度）、`header.crop`、\n`header.mirror`、`header.figureHeight`、`images.headerFigure`（可叠放的小立绘）和 `crops`（按比例裁切某张图片）。\n\n## English\n\nBrand statements: every page ends with the `© PropFirmVIP 冒险岛 https://propfirmvip.com/` copyright line (it opens\nthe brand address) and the About page shows the provider, support and free-of-charge notice; both come from the\nskin manifest's `brand.copyright` / `brand.notice` and `data/config.json` `brand` can override them.\n\nIsland skin assets: the sidebar mascot now uses the bear without the map, the top-left avatar is the\nuser-supplied bear sticker, and the header banner is repainted without the house, with a small hand-drawn blue dragon facing left at the bottom\nright; the header card grows to 180 DIP in tall windows so the whole scene shows. The skin manifest gains\n`header.band` (vertical band of the header picture), `header.height` (minimum header card height),\n`header.crop`, `header.mirror`, `header.figureHeight`, `images.headerFigure` (a small overlaid figure) and\n`crops` (relative crops of a picture).\n\n## Commits\n\n- chore: release v1.5.0 (c3ee6ed)\n- feat: brand copyright footer on every page and a provider notice on the About page (1f465d4)\n- feat: use the supplied bear sticker as the island brand avatar (7e9b18e)\n- feat: repaint the island header banner with a hand-drawn dragon (456ab69)\n- feat: map-free bear, bear-head avatar and a pixel dragon in the island skin (8480bf8)\n- chore: point updatesInfo at v1.0.1 (bbc2e75)\n",
     "executable": {
-      "name": "BatchTradovate-v1.0.1-windows-x64.exe",
-      "url": "https://github.com/Mind2Money/PropfirmVIPCopyUpdates/releases/download/v1.0.1/BatchTradovate-v1.0.1-windows-x64.exe",
-      "bytes": 256337346,
-      "sha256": "f0ddbea0a85857c6156c834d9355be3bfade0a0073d676c1eea2b83ff2d9a2ff"
+      "name": "BatchTradovate-v1.5.0-windows-x64.exe",
+      "url": "https://github.com/Mind2Money/PropfirmVIPCopyUpdates/releases/download/v1.5.0/BatchTradovate-v1.5.0-windows-x64.exe",
+      "bytes": 255055298,
+      "sha256": "434df4789c65d9e3672187f22e0273f0d2337d3dfb3492af42f80b0928316110"
     }
   },
   "changelog": "https://github.com/Mind2Money/PropfirmVIPCopyUpdates/blob/main/CHANGELOG.md"

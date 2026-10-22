@@ -1,5 +1,39 @@
 # 更新日志 · Changelog
 
+## v1.5.0 (2026-10-22)
+
+## 简体中文
+
+品牌声明：每个页面底部新增 `© PropFirmVIP 冒险岛 https://propfirmvip.com/` 版权行（点击打开品牌网址），关于页新增
+提供方、技术支持与永久免费声明；两者来自皮肤清单的 `brand.copyright` / `brand.notice`，`data/config.json` 的 `brand` 可覆盖。
+
+海岛皮肤素材调整：侧栏角色改用不拿地图的冒险熊，左上角头像改用用户提供的小熊贴纸；页眉横幅重新绘制，去掉右侧小屋，
+右下角改为一只头朝左的手绘小蓝龙，页眉卡片在高窗口下加高到 180 DIP 以显示完整画面。
+皮肤清单新增 `header.band`（页眉图的竖向显示区间）、`header.height`（页眉卡片最小高度）、`header.crop`、
+`header.mirror`、`header.figureHeight`、`images.headerFigure`（可叠放的小立绘）和 `crops`（按比例裁切某张图片）。
+
+## English
+
+Brand statements: every page ends with the `© PropFirmVIP 冒险岛 https://propfirmvip.com/` copyright line (it opens
+the brand address) and the About page shows the provider, support and free-of-charge notice; both come from the
+skin manifest's `brand.copyright` / `brand.notice` and `data/config.json` `brand` can override them.
+
+Island skin assets: the sidebar mascot now uses the bear without the map, the top-left avatar is the
+user-supplied bear sticker, and the header banner is repainted without the house, with a small hand-drawn blue dragon facing left at the bottom
+right; the header card grows to 180 DIP in tall windows so the whole scene shows. The skin manifest gains
+`header.band` (vertical band of the header picture), `header.height` (minimum header card height),
+`header.crop`, `header.mirror`, `header.figureHeight`, `images.headerFigure` (a small overlaid figure) and
+`crops` (relative crops of a picture).
+
+## Commits
+
+- chore: release v1.5.0 (c3ee6ed)
+- feat: brand copyright footer on every page and a provider notice on the About page (1f465d4)
+- feat: use the supplied bear sticker as the island brand avatar (7e9b18e)
+- feat: repaint the island header banner with a hand-drawn dragon (456ab69)
+- feat: map-free bear, bear-head avatar and a pixel dragon in the island skin (8480bf8)
+- chore: point updatesInfo at v1.0.1 (bbc2e75)
+
 ## v1.0.1 (2026-10-22)
 
 ## 简体中文
