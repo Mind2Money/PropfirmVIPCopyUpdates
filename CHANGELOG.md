@@ -1,5 +1,28 @@
 # 更新日志 · Changelog
 
+## v1.5.1 (2026-10-22)
+
+## 简体中文
+
+桌面只保留实盘：跟单组、手动面板、Webhook、Pine 策略与定时计划不再提供演练选项，启动均需输入完整组名，建议先用小手数核对；
+启动提醒不再要求开启 2FA。应用图标改为企鹅；发布文件改名为 `PropFirmVIP-Tradovate-vX.Y.Z-windows-x64.exe`。
+
+## English
+
+The desktop is live only: copy groups, the manual panel, Webhook, Pine strategies and schedules no longer offer a dry run;
+every start needs the exact group name, so verify with a small size first. The startup reminder no longer asks for 2FA.
+The application icon is the penguin; release assets are named `PropFirmVIP-Tradovate-vX.Y.Z-windows-x64.exe`.
+
+## Commits
+
+- chore: release v1.5.1 (d907990)
+- feat: live-only desktop and the penguin application icon (6f57fae)
+- feat: drop the 2FA advice and name release assets PropFirmVIP-Tradovate (77638d5)
+- docs: add the PropFirmVIP-styled copy of the user guide (6a4612c)
+- docs: propfirmvip customized (f9adaf0)
+- docs: add the illustrated Chinese user guide (f92e25e)
+- chore: point updatesInfo at v1.5.0 (3f9d766)
+
 ## v1.5.0 (2026-10-22)
 
 ## 简体中文

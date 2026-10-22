@@ -1,15 +1,15 @@
 {
   "product": "冒险岛VIP Copy",
   "latest": {
-    "version": "v1.5.0",
-    "publishedAt": "2026-10-22T07:46:16.394Z",
-    "url": "https://github.com/Mind2Money/PropfirmVIPCopyUpdates/releases/tag/v1.5.0",
-    "notes": "## 简体中文\n\n品牌声明：每个页面底部新增 `© PropFirmVIP 冒险岛 https://propfirmvip.com/` 版权行（点击打开品牌网址），关于页新增\n提供方、技术支持与永久免费声明；两者来自皮肤清单的 `brand.copyright` / `brand.notice`，`data/config.json` 的 `brand` 可覆盖。\n\n海岛皮肤素材调整：侧栏角色改用不拿地图的冒险熊，左上角头像改用用户提供的小熊贴纸；页眉横幅重新绘制，去掉右侧小屋，\n右下角改为一只头朝左的手绘小蓝龙，页眉卡片在高窗口下加高到 180 DIP 以显示完整画面。\n皮肤清单新增 `header.band`（页眉图的竖向显示区间）、`header.height`（页眉卡片最小高度）、`header.crop`、\n`header.mirror`、`header.figureHeight`、`images.headerFigure`（可叠放的小立绘）和 `crops`（按比例裁切某张图片）。\n\n## English\n\nBrand statements: every page ends with the `© PropFirmVIP 冒险岛 https://propfirmvip.com/` copyright line (it opens\nthe brand address) and the About page shows the provider, support and free-of-charge notice; both come from the\nskin manifest's `brand.copyright` / `brand.notice` and `data/config.json` `brand` can override them.\n\nIsland skin assets: the sidebar mascot now uses the bear without the map, the top-left avatar is the\nuser-supplied bear sticker, and the header banner is repainted without the house, with a small hand-drawn blue dragon facing left at the bottom\nright; the header card grows to 180 DIP in tall windows so the whole scene shows. The skin manifest gains\n`header.band` (vertical band of the header picture), `header.height` (minimum header card height),\n`header.crop`, `header.mirror`, `header.figureHeight`, `images.headerFigure` (a small overlaid figure) and\n`crops` (relative crops of a picture).\n\n## Commits\n\n- chore: release v1.5.0 (c3ee6ed)\n- feat: brand copyright footer on every page and a provider notice on the About page (1f465d4)\n- feat: use the supplied bear sticker as the island brand avatar (7e9b18e)\n- feat: repaint the island header banner with a hand-drawn dragon (456ab69)\n- feat: map-free bear, bear-head avatar and a pixel dragon in the island skin (8480bf8)\n- chore: point updatesInfo at v1.0.1 (bbc2e75)\n",
+    "version": "v1.5.1",
+    "publishedAt": "2026-10-22T10:32:50.873Z",
+    "url": "https://github.com/Mind2Money/PropfirmVIPCopyUpdates/releases/tag/v1.5.1",
+    "notes": "## 简体中文\n\n桌面只保留实盘：跟单组、手动面板、Webhook、Pine 策略与定时计划不再提供演练选项，启动均需输入完整组名，建议先用小手数核对；\n启动提醒不再要求开启 2FA。应用图标改为企鹅；发布文件改名为 `PropFirmVIP-Tradovate-vX.Y.Z-windows-x64.exe`。\n\n## English\n\nThe desktop is live only: copy groups, the manual panel, Webhook, Pine strategies and schedules no longer offer a dry run;\nevery start needs the exact group name, so verify with a small size first. The startup reminder no longer asks for 2FA.\nThe application icon is the penguin; release assets are named `PropFirmVIP-Tradovate-vX.Y.Z-windows-x64.exe`.\n\n## Commits\n\n- chore: release v1.5.1 (d907990)\n- feat: live-only desktop and the penguin application icon (6f57fae)\n- feat: drop the 2FA advice and name release assets PropFirmVIP-Tradovate (77638d5)\n- docs: add the PropFirmVIP-styled copy of the user guide (6a4612c)\n- docs: propfirmvip customized (f9adaf0)\n- docs: add the illustrated Chinese user guide (f92e25e)\n- chore: point updatesInfo at v1.5.0 (3f9d766)\n",
     "executable": {
-      "name": "BatchTradovate-v1.5.0-windows-x64.exe",
-      "url": "https://github.com/Mind2Money/PropfirmVIPCopyUpdates/releases/download/v1.5.0/BatchTradovate-v1.5.0-windows-x64.exe",
-      "bytes": 255055298,
-      "sha256": "434df4789c65d9e3672187f22e0273f0d2337d3dfb3492af42f80b0928316110"
+      "name": "PropFirmVIP-Tradovate-v1.5.1-windows-x64.exe",
+      "url": "https://github.com/Mind2Money/PropfirmVIPCopyUpdates/releases/download/v1.5.1/PropFirmVIP-Tradovate-v1.5.1-windows-x64.exe",
+      "bytes": 255436226,
+      "sha256": "2d7b40fa22b63362b1a220211f65e05f4011796aa5f4f1c12f3001e76c5c0deb"
     }
   },
   "changelog": "https://github.com/Mind2Money/PropfirmVIPCopyUpdates/blob/main/CHANGELOG.md"
