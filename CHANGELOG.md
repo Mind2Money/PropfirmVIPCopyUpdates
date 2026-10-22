@@ -1,5 +1,23 @@
 # 更新日志 · Changelog
 
+## v1.0.1 (2026-10-22)
+
+## 简体中文
+
+账户页默认折叠「未同步」账户，工具栏的「展开未同步账户 N」按钮可展开或收起；搜索时始终显示全部匹配账户，
+点击针对未同步账户的提醒时会自动展开。
+
+## English
+
+The Accounts page folds unsynced accounts by default; the toolbar's "Show N unsynced" button expands or
+hides them, a search always shows every match, and opening an alert for an unsynced account expands them.
+
+## Commits
+
+- chore: release v1.0.1 (583fa46)
+- feat: fold unsynced accounts on the Accounts page until expanded (24bdce3)
+- chore: point updatesInfo at v1.0.0 (4c4ab86)
+
 ## v1.0.0 (2026-10-22)
 
 ## 简体中文
