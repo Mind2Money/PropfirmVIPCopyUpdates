@@ -1,5 +1,72 @@
 # 更新日志 · Changelog
 
+## v1.6.0 (2026-10-22)
+
+## 简体中文
+
+浮盈浮亏改按平仓方向的买卖价计算：多头按买一价、空头按卖一价标记，不再使用最新成交价（最新成交可能落在价差另一侧，市价平仓的实际成交会低于按最新成交价估算的数值）。
+缺少该侧报价时持仓视为未标记（等待行情），日盈亏上限改用券商资金快照判断，不会用最新成交价顶替；只含最新成交的报价沿用上一次的买卖价。
+日盈亏上限的触发记录新增触发时各持仓的标记方向、标记价、最新成交价与持仓均价，便于与平仓结果比对。
+
+软件加固：改为专有许可（不再是 AGPL）。私有引擎在构建期先混淆改名再 AES-256-GCM 加密，运行时在可执行文件内解密，公开发布不含可读源码；每次构建产出的反混淆
+sourcemap 作为私有“map 表”，只随私有仓库发布保留，绝不进入公开更新源。首次启动新增许可协议确认（拒绝即退出），接受记录带版本与时间戳。构建默认用 PowerShell 对可执行文件自签名（自签名不受信任，SmartScreen 仍会提示未知发布者；可用 `BT_SIGN_PFX`/`BT_SIGN_THUMBPRINT` 换真证书，或 `BT_SIGN=off` 关闭）。可执行文件经单文件压缩与 gzip 引擎覆盖层压缩，体积约 108MB。
+
+产品名统一为 PropFirmVIP Tradovate：可执行文件为 `PropFirmVIP-Tradovate.exe`，引擎为 `PropFirmVIP-Tradovate.Engine.exe`，窗口标题、通知、浏览器登录临时目录、诊断日志文件名与
+`%LOCALAPPDATA%\\PropFirmVIP-Tradovate` 偏好/引擎缓存目录随之更名（旧目录的 desktop.json 首次启动时自动沿用）。
+
+修复网页登录成功后因“登录浏览器清理未完成”而登录失败的问题：浏览器关闭后先以调试端口确认已退出，只有端口仍响应或文件持续占用时才调用 PowerShell
+进程清理，因此 PowerShell 被拦截、缓慢或损坏的电脑也能完成登录；临时目录删除会在占用期间限时重试。浏览器已关闭而目录暂时删不掉时，登录照常完成，
+连接页列出该目录，可以管理员身份删除（UAC 确认）或打开所在文件夹手动删除；每次启动和网页登录前自动重试。浏览器仍可能在运行时仍判登录失败。
+登录失败与目录残留会写入操作日志（只含原因代码和目录随机名，不含本机路径）。
+
+## English
+
+Open P&L is now marked at the side a market close would take: a long at the bid, a short at the offer, no longer the last trade (which can print
+on the far side of the spread and overstate what the close realizes). A quote missing that side leaves the position unmarked (awaiting quotes) and
+the daily limit falls back to the broker's funds snapshot; the last trade never stands in, and a trade-only quote keeps the last known sides.
+The daily-limit breach entry now records each position's side, mark, last trade and average price at the trigger for comparison with the close.
+
+Hardening: relicensed to proprietary (no longer AGPL). The private engine is obfuscated then AES-256-GCM encrypted at build time and decrypted inside the
+executable at run time, so public releases carry no readable source; each build's de-obfuscation sourcemaps are the private map, kept for the private repository
+release only and never shipped to the public update feed. First run now requires accepting the license agreement (declining exits), recorded with version and
+timestamp. The build self-signs the executable by default via PowerShell (self-signed certificates are untrusted, so SmartScreen still warns; set
+`BT_SIGN_PFX`/`BT_SIGN_THUMBPRINT` for a real certificate or `BT_SIGN=off` to skip). The executable is compressed — a compressed single-file bundle and a
+gzip engine overlay — to about 108MB.
+
+The product is now PropFirmVIP Tradovate everywhere: the executable is `PropFirmVIP-Tradovate.exe`, the engine `PropFirmVIP-Tradovate.Engine.exe`, and the window title,
+notifications, browser-login profile folder, diagnostic log file name and the `%LOCALAPPDATA%\\PropFirmVIP-Tradovate` preferences/engine cache follow
+(a desktop.json left by the BatchTradovate-named builds is adopted on first start).
+
+A completed browser login no longer fails with "login browser cleanup did not finish": after the browser closes, its debug port confirms
+the exit, and the PowerShell process cleanup runs only when that port still answers or files stay busy, so hosts where PowerShell is blocked,
+slow or broken can sign in. Removing the temporary folder retries busy files for a bounded time. When the browser has closed but the folder
+cannot be removed yet, the login completes and the Connections page lists the folder with administrator removal (UAC confirmation) and
+an Open folder action; every start and browser login retries it. A browser that may still be running still fails the login. Failed logins
+and leftover folders are journaled with cause codes and the folder's random name, without local paths.
+
+## Commits
+
+- fix: make the release build pass on CI (af317da)
+- chore: release v1.6.0 (908ea02)
+- docs: update hardening notes for self-signing and compression (60f4455)
+- perf: gzip the engine overlay to shrink the executable (902b4aa)
+- feat: mark open P&L at the closing side (bid for longs, offer for shorts) (58929c9)
+- feat: self-sign the executable by default via PowerShell (f059ba2)
+- perf: compress the single-file bundle to shrink the executable (90e5d98)
+- docs: add the first-run license screenshot and README note (53ad29c)
+- docs: document the hardening (license, engine encryption, map, EULA, signing) (6376064)
+- feat: wire optional Authenticode code signing into the build (5648af1)
+- feat: gate first run on accepting the proprietary license (6122197)
+- feat: emit the private de-obfuscation map beside the executable (39c3050)
+- feat: obfuscate engine sources and emit a private sourcemap (9123638)
+- feat: encrypt embedded engine assets with AES-256-GCM at build (9ec6cb3)
+- fix: tolerate slow loopback refusals when confirming the login browser closed (5be8e80)
+- chore: relicense from AGPL-3.0 to proprietary (15e3605)
+- fix: keep browser logins when only the profile folder is left (5e012c0)
+- chore: stamp log exports with the propfirmvip-tradovate format id (1e281bc)
+- chore: point updatesInfo at v1.5.1 (e5c15a3)
+- feat: rename the product to PropFirmVIP Tradovate (0870738)
+
 ## v1.5.1 (2026-10-22)
 
 ## 简体中文
