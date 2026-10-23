@@ -1,5 +1,30 @@
 # 更新日志 · Changelog
 
+## v1.6.2 (2026-10-23)
+
+## 简体中文
+
+跟单组页改为一张表列出全部跟单组：每组主账户行显示组名、主账户、运行状态及自己的净值与盈亏，跟随账户以树形连线缩进列在其下，可点箭头折叠；主账户行的「操作」按钮弹出该组的状态与全部操作（实盘启动/停止、全平、编辑、账户身份核对、重新核对、删除）。页面横幅与组卡片移除，工具栏只保留当前组选择（作用于规则与计划页签）、刷新和新建。
+所有表格的数值列表头改为与数值一起右对齐。
+「操作」弹出层支持键盘：打开时焦点落在第一个可用操作上，Esc 关闭并回到「操作」按钮；折叠箭头可用 Tab 聚焦。点表格任一行也会把该行所属组设为当前组。
+窗口可以缩到最小尺寸以下：小于 880×600 时整个工作区（含字体）等比缩小而不是裁切。跟单方式与合约映射拆成两列。
+
+## English
+
+The group page lists every group in one table: each leader row shows the group name, the leader account, the run state and its own equity and P&L, its followers hang below on drawn tree lines and fold with the chevron, and the row's Actions button opens the group's state and every action (start live/stop, flatten, edit, identity review, reconcile, delete). The page banner and group card are gone; the toolbar keeps the current-group selector (for the rule and schedule tabs), refresh and new group.
+Numeric column headers in every table are right-aligned over their values.
+The Actions popup works from the keyboard: the first available action takes focus, Escape closes it and returns to the Actions button, and the fold chevron is reachable with Tab. Selecting any row also makes its group current.
+The window can shrink below its minimum: under 880×600 the whole workspace, fonts included, scales down instead of clipping. Copy mode and contract mapping are separate columns.
+
+## Commits
+
+- chore: release v1.6.2 (2646e0d)
+- feat: keyboard access for the Actions popup and row-driven current group (68db65f)
+- feat: list every copy group in one member tree with an Actions popup (a62bab2)
+- feat: compact group page, member tree with the leader, and workspace scaling (2d54508)
+- chore: point updatesInfo at v1.6.1 (654081e)
+- test: allow the DPAPI round trip two minutes on slow CI runners (f2cb092)
+
 ## v1.6.1 (2026-10-22)
 
 ## 简体中文
