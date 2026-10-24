@@ -1,5 +1,47 @@
 # 更新日志 · Changelog
 
+## v1.7.0 (2026-10-24)
+
+## 简体中文
+
+网页登录可以记住账号密码：每个连接使用自己固定的独立浏览器配置（保存在数据目录），不再在登录后删除。Edge/Chrome 自带的「保存密码」和 Tradovate 的网站数据保留在其中，之后的网页登录会自动填写账号密码；程序不读取、不保存密码。
+首次登录成功后窗口保持打开，等待浏览器的保存提示：关闭窗口、浏览器写入密码库或 60 秒后自动关闭；浏览器写入过一次后，之后的登录很快自动关闭。等待期间连接状态显示「等待保存密码」。
+连接页新增「清除记住的登录」按钮和「记住登录」列；删除连接时一并删除该连接的浏览器配置。该连接的登录窗口仍开着时，不会再次启动或删除它。
+
+修复：在图表上移动独立的止盈/止损单（撤旧单再挂新单）后，部分跟随账户可能收不到新的止盈或止损。原因是程序撤单后核对最终成交量时，会断开并重连账户数据连接；在重连的约一两秒内，补挂的保护单被当作「未同步」而放弃，同期主账户新挂的单也被记为「断线期间遗漏」。现在核对改为另开一条临时连接读取快照，原连接保持在线、照常推送和下单，快照与期间收到的事件合并后临时连接即关闭。真实断线时的处理不变。
+跟随单在发送前被拒（连接未同步、对冲或日盈亏上限等拦截）时，日志新增「跟随单未发送」记录及原因代码，订单面板「本轮未发送，原因见日志」现在有对应记录。
+挂单的止盈止损现在会提前出现在跟随账户里：主账户给尚未成交的挂单补上止盈或止损时，程序撤销跟随账户尚未成交的入场单，把入场和止盈止损作为一个 OSO 重新挂出；止盈止损处于未激活（Suspended）状态，入场成交后才生效。重挂会让限价入场失去原来的排队位置；从撤单到重挂，需要等撤单生效并核对最终成交量（通常一到几秒），这期间跟随账户没有入场单。如果这期间入场单有成交，已成交部分照旧在成交后挂出止盈止损，被撤掉的剩余数量不再补挂，日志会记录。重挂会被拒绝时（单笔上限、对冲、日盈亏上限等），保留原入场单，止盈止损照旧等成交后再挂。主账户一次性下出的带止盈止损挂单本来就按 OSO 复制，行为不变。
+新增微信推送（Server酱）：在设置中保存 SendKey（Windows 加密保存，之后只显示前后几位）并打开推送后，成交（开仓、加仓、减仓、平仓、止盈、止损）、下单/撤单/改单、异常与安全提醒、跟单组启停会推送到微信；每类事件和账户范围（主账户和跟随账户、只推主账户、所有已连接账户）都可在设置中选择。推送内容包含账户名、合约、方向、数量和价格，指令类提醒写明是哪个请求（改单、撤单或平仓，订单号、类型、价格、数量）和券商给出的原因；消息保存在 Server酱 的服务器上。同一笔交易在各账户的事件合并成一条，异常提醒立即发送；同一原因的提醒 30 分钟内只推一次，每个结果未知的请求都会推送；Server酱 拒绝推送（如 SendKey 无效或当日额度用完）时当天停止推送并在设置中显示原因。默认关闭，模拟模式不推送。
+修复：主账户撤销未成交的带止盈止损挂单时，跟随账户中对未激活止盈止损的改单（券商先挂起，等入场成交再执行）会被券商停止（ExecutionStopped），日志原先记为「指令被拒」警告。现在止盈止损随入场单一起撤销、且没有成交时，这类改单记为「已被取代」（普通信息，不推送）；撤单还在进行时先等待，超过确认时限仍记为被拒；止盈止损仍在而改单被停止时，照旧记为被拒。
+跟单组页改版：每组先列一行组名（主题色、较大字号、加粗）和组的运行状态，主账户（粗体）和跟随账户（常规字体）以树形连线列在其下。原「操作」按钮改为组行上的「停止」/「实盘启动」按钮（实盘启动仍需输入完整组名）和「⋯」（组的运行状态与其余操作：全平当前组、编辑、账户身份核对、重新核对状态、删除跟单组）。折叠箭头现在收起整组成员。
+
+## English
+
+Browser login can remember the username and password: each connection signs in through its own fixed, isolated browser profile in the data folder instead of a temporary one. Edge/Chrome's own "save password" and Tradovate's site data stay there, so later logins fill in the username and password; the application neither reads nor stores the password.
+After the first sign-in the window stays open for the browser's save prompt and closes when you close it, once the browser writes its password store, or after 60 seconds; once the browser has written it, later logins close shortly after sign-in. The connection shows "Saving password" meanwhile.
+The Connections page adds "Forget saved login" and a "Saved login" column; removing a connection deletes its profile. A profile whose login window is still open is neither launched into nor deleted.
+
+Fixed: after a standalone target or stop was moved on the chart (the old order cancelled, a new one placed), a follower could miss the new target or stop. Checking a cancelled order's final quantity disconnected and reconnected the account data connection; during those one or two seconds a released protective order was dropped as "not synchronized", and an order the leader placed meanwhile was logged as missed while disconnected. The check now reads its snapshot on a separate temporary connection: the existing connection stays up, keeps delivering events and accepts orders, and the temporary connection closes once its snapshot is merged with the events received meanwhile. Real disconnects are handled as before.
+A follower order refused before sending (connection not synchronized, hedge or daily-limit guard) now writes "Follower order not sent" with its reason code, so the order board's "Not sent this run; see the log" has a matching entry.
+A pending order's target and stop now show on the follower right away: when the leader adds a target or stop to an unfilled pending entry, the follower's unfilled entry is cancelled and placed again together with them as one OSO; the target and stop stay inactive (Suspended) until the entry fills. The new placement loses a limit entry's queue position, and between the cancel and the new placement (the cancel taking effect plus a final-quantity check, typically one to a few seconds) there is no follower entry. If the entry executes meanwhile, the filled quantity gets its target and stop after the fill as before, the cancelled remainder is not placed again, and the log records it. When the new placement would be refused (size limit, hedge or daily-limit guard), the resting entry is kept and its target and stop still wait for the fill. Pending orders the leader places with their target and stop in one request were already copied as an OSO and are unchanged.
+New WeChat pushes (Server酱): after saving a SendKey in Settings (encrypted with Windows; only its first and last characters are shown again) and turning pushes on, fills (opens, adds, reductions, closes, targets and stops), orders (placed, cancelled, changed), alerts and group starts and stops are pushed to WeChat; each event kind and the accounts (leaders and followers, leaders only, or all connected accounts) can be chosen in Settings. Pushes include account names, contracts, sides, quantities and prices, a request alert names the request (change, cancel or close; order, type, prices, quantity) and the broker's reason, and pushes are stored on Server酱's servers. One trade's events across accounts make one message and alerts go out at once; an alert repeating for the same cause goes out at most once per 30 minutes, while every unknown request outcome is pushed; when Server酱 refuses a push (for example an invalid SendKey or a used-up daily quota), pushes stop for the day and Settings shows the reason. Off by default; simulation never pushes.
+Fixed: when the leader cancelled an unfilled pending entry with a target and stop, the broker stopped (ExecutionStopped) the follower's changes to the inactive target and stop that it was holding until the entry filled, and the log reported them as refused requests. Now, once the target and stop have been cancelled with their entry without executions, such a change is logged as superseded (information, no push); while the cancel is still arriving it waits, and at the confirmation deadline it is still a refusal. A change stopped while the target or stop remains is a refusal as before.
+Copy groups page redesign: each group starts with its own row (the name in the accent color, larger and bold, with the group's run state); the leader (bold) and the followers (regular) hang below on tree lines. The Actions button became a Stop / Start live button on the group row (Start live still asks for the exact group name) and a ⋯ button for the group's state and its other actions (flatten this group, edit, account identity review, reconcile, delete group). The fold arrow now folds all of a group's members.
+
+## Commits
+
+- test: let placement events land before a broker reports copies unacknowledged (d606b76)
+- chore: release v1.7.0 (e7867a7)
+- feat: give each copy group its own row with a start/stop button (2751f24)
+- fix: key push alerts on every reason field and each unknown request (d0eb881)
+- fix: settle stopped held bracket changes and sharpen push alerts (a1745f3)
+- fix: push a repeating alert once per window (e6c2883)
+- feat: push account activity to WeChat through Server酱 (1153714)
+- feat: place a pending entry's late target and stop as an inactive OSO (0d877c7)
+- fix: read evidence snapshots beside the live stream (21cd157)
+- feat: remember the browser login per connection (2fe5584)
+- chore: point updatesInfo at v1.6.2 (7b2a4c9)
+
 ## v1.6.2 (2026-10-23)
 
 ## 简体中文
